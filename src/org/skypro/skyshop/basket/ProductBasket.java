@@ -35,7 +35,7 @@ public class ProductBasket {
     public void printBasket() {
         for (Product value : products) {
             if (value != null) {
-                System.out.println(value.getProductDesignation() + ": " + value.getPrice());
+                System.out.println(value);
             }
         }
         if (calcTotalBasketCost() == 0) {
@@ -55,12 +55,8 @@ public class ProductBasket {
     }
 
     public void clearBasket() {
-        for (int i = 0; i < products.length; i++) {
-            if (products[i] != null) {
-                products[i] = null;
-                size--;
-            }
-        }
+        Arrays.fill(products, null);
+        size = 0;
     }
 
     public String toString() {

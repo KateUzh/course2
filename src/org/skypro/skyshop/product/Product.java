@@ -18,7 +18,7 @@ public class Product {
     }
 
     public String toString() {
-        return productDesignation + ": " + price;
+        return getProductDesignation() + ": " + getPrice();
     }
 }
 

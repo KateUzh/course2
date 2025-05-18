@@ -31,5 +31,6 @@ public class App {
         System.out.println("\nСтоимость корзины " + productBasket1.calcTotalBasketCost());
         System.out.println("\nproductBasket1.checkProduct(\"курица\") = " +
                 productBasket1.checkProduct("курица"));
+        System.out.println("productBasket1 = " + productBasket1);
     }
 }
