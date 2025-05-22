@@ -8,6 +8,7 @@ import java.util.Objects;
 public class ProductBasket {
     private final Product[] products;
     private int size = 0;
+    public static int countSpecialProduct;
 
     public ProductBasket() {
         this.products = new Product[5];
@@ -19,6 +20,9 @@ public class ProductBasket {
         } else {
             products[size++] = product;
             System.out.println("Продукт " + product.getProductDesignation() + " добавлен в корзину");
+            if (product.isSpecial()) {
+                countSpecialProduct++;
+            }
         }
     }
 
@@ -42,6 +46,7 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
         } else {
             System.out.println("Итого: " + calcTotalBasketCost());
+            System.out.println("Специальных товаров: " + countSpecialProduct);
         }
     }
 
@@ -57,6 +62,7 @@ public class ProductBasket {
     public void clearBasket() {
         Arrays.fill(products, null);
         size = 0;
+        countSpecialProduct = 0;
     }
 
     public String toString() {
