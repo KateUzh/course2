@@ -1,10 +1,10 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedProduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.Product;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.*;
+import org.skypro.skyshop.search.SearchEngine;
+
+import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -14,6 +14,9 @@ public class App {
         Product carrot = new DiscountedProduct("морковь", 30, 10);
         Product blueberry = new DiscountedProduct("черника", 220, 30);
         Product chicken = new FixPriceProduct("курица");
+        Article blackTeaArticle = new Article("Чай", "Чёрный крупнолистовой чай без добавок");
+        Article greenTeaArticle = new Article("Чай", "Зелёный крупнолистовой чай без добавок");
+        Article coffeeArticle = new Article("Кофе", "Молотый кофе");
 
         ProductBasket productBasket1 = new ProductBasket();
 
@@ -35,5 +38,21 @@ public class App {
         System.out.println("\nproductBasket1.checkProduct(\"курица\") = " +
                 productBasket1.checkProduct("курица"));
         System.out.println("productBasket1 = " + productBasket1);
+
+        SearchEngine first = new SearchEngine(15);
+        first.add(milk);
+        first.add(blackTeaArticle);
+        first.add(banana);
+        first.add(carrot);
+        first.add(chicken);
+        first.add(blueberry);
+        first.add(greenTeaArticle);
+        first.add(chocolate);
+        first.add(coffeeArticle);
+        first.add(milk);
+        first.add(milk);
+
+        System.out.println("first = " + first);
+        System.out.println(Arrays.toString(first.search("ко")));
     }
 }
