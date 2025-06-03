@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class SearchEngine {
     private final Searchable[] searchElements;
-    int size;
 
     public SearchEngine(int size) {
         this.searchElements = new Searchable[size];
