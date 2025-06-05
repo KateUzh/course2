@@ -8,7 +8,7 @@ import java.util.Objects;
 public class ProductBasket {
     private final Product[] products;
     private int size = 0;
-    public static int countSpecialProduct;
+    private static int countSpecialProduct;
 
     public ProductBasket() {
         this.products = new Product[5];
