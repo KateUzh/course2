@@ -2,7 +2,9 @@ package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
+import org.skypro.skyshop.search.BestResultNotFoundException;
 import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 import java.util.Arrays;
 
@@ -11,12 +13,23 @@ public class App {
         Product milk = new SimpleProduct("молоко", 100);
         Product banana = new SimpleProduct("банан", 50);
         Product chocolate = new SimpleProduct("шоколад", 150);
-        Product carrot = new DiscountedProduct("морковь", 30, 10);
+        Product carrot = new DiscountedProduct("морковь", 30, 30);
         Product blueberry = new DiscountedProduct("черника", 220, 30);
         Product chicken = new FixPriceProduct("курица");
         Article blackTeaArticle = new Article("Чай", "Чёрный крупнолистовой чай без добавок");
         Article greenTeaArticle = new Article("Чай", "Зелёный крупнолистовой чай без добавок");
         Article coffeeArticle = new Article("Кофе", "Молотый кофе");
+        try {
+            Product cucumber = new DiscountedProduct("  ", 200, 20);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
+
+        try {
+            Product AppleJuice = new DiscountedProduct("Яблочный сок", 129, -50);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
 
         ProductBasket productBasket1 = new ProductBasket();
 
@@ -54,5 +67,16 @@ public class App {
 
         System.out.println("first = " + first);
         System.out.println(Arrays.toString(first.search("ко")));
+        try {
+            System.out.println("first.findMostSimilarProduct(\"я\") = " + first.findMostSimilarProduct("я"));
+        } catch (BestResultNotFoundException e) {
+            System.out.println("Caught BestResultNotFound");
+        }
+
+        try {
+            System.out.println("first.findMostSimilarProduct(\"о\") = " + first.findMostSimilarProduct("о"));
+        } catch (BestResultNotFoundException e) {
+            System.err.println("Caught BestResultNotFound");
+        }
     }
 }
