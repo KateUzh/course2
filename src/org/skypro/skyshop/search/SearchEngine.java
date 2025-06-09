@@ -33,6 +33,32 @@ public class SearchEngine {
         }
     }
 
+    public Searchable findMostSimilarProduct(String search) throws BestResultNotFoundException {
+        Searchable result = null;
+        int maxCount = 0;
+        for (Searchable searchElement : searchElements) {
+            if (searchElement != null) {
+                int count = 0;
+                int index = 0;
+                int elemIndex = searchElement.getSearchTerm().indexOf(search, index);
+                while (elemIndex != -1) {
+                    count++;
+                    index = elemIndex + search.length();
+                    elemIndex = searchElement.getSearchTerm().indexOf(search, index);
+                }
+                if (count > maxCount) {
+                    maxCount = count;
+                    result = searchElement;
+                }
+            }
+        }
+        if (result == null) {
+            throw new BestResultNotFoundException(search);
+        }
+        return result;
+    }
+
+    @Override
     public String toString() {
         return Arrays.toString(this.searchElements);
     }
