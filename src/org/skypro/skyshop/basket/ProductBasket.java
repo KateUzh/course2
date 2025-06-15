@@ -2,28 +2,25 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class ProductBasket {
-    private final Product[] products;
+    private final LinkedList<Product> products;
     private int size = 0;
     private static int countSpecialProduct;
 
     public ProductBasket() {
-        this.products = new Product[5];
+        this.products = new LinkedList<>();
     }
 
     public void addProductInBasket(Product product) {
-        if (size >= products.length) {
-            System.out.println("Корзина переполнена, продукт " + product.getProductDesignation() + " не добавлен");
-        } else {
-            products[size++] = product;
-            System.out.println("Продукт " + product.getProductDesignation() + " добавлен в корзину");
-            if (product.isSpecial()) {
-                countSpecialProduct++;
-            }
+        products.add(product);
+        size++;
+        System.out.println("Продукт " + product.getProductDesignation() + " добавлен в корзину");
+        if (product.isSpecial()) {
+            countSpecialProduct++;
         }
+
     }
 
     public int calcTotalBasketCost() {
@@ -60,12 +57,32 @@ public class ProductBasket {
     }
 
     public void clearBasket() {
-        Arrays.fill(products, null);
+        products.clear();
         size = 0;
         countSpecialProduct = 0;
     }
 
+    public List<Product> removeProductFromBasket(Product productDesignation) {
+        Iterator<Product> iterator = products.iterator();
+        List<Product> removeProductList = new LinkedList<>();
+        while (iterator.hasNext()) {
+            Product element = iterator.next();
+            if (element != null & productDesignation.equals(element)) {
+                iterator.remove();
+                removeProductList.add(element);
+            }
+        }
+        if (removeProductList.isEmpty()) {
+            System.out.println("Список пуст");
+        }
+        return removeProductList;
+    }
+
+
+    @Override
     public String toString() {
-        return Arrays.toString(this.products);
+        return "ProductBasket{" +
+                "products=" + products +
+                '}';
     }
 }

@@ -4,9 +4,6 @@ import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.BestResultNotFoundException;
 import org.skypro.skyshop.search.SearchEngine;
-import org.skypro.skyshop.search.Searchable;
-
-import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
@@ -52,7 +49,15 @@ public class App {
                 productBasket1.checkProduct("курица"));
         System.out.println("productBasket1 = " + productBasket1);
 
-        SearchEngine first = new SearchEngine(15);
+        System.out.println("productBasket1.removeProductFromBasket(milk) = " +
+                productBasket1.removeProductFromBasket(milk));
+        productBasket1.printBasket();
+
+        System.out.println("productBasket1.removeProductFromBasket(milk) = " +
+                productBasket1.removeProductFromBasket(milk));
+        productBasket1.printBasket();
+
+        SearchEngine first = new SearchEngine();
         first.add(milk);
         first.add(blackTeaArticle);
         first.add(banana);
@@ -66,7 +71,7 @@ public class App {
         first.add(milk);
 
         System.out.println("first = " + first);
-        System.out.println(Arrays.toString(first.search("ко")));
+        System.out.println("first.search(\"ко\") = " + first.search("ко"));
         try {
             System.out.println("first.findMostSimilarProduct(\"я\") = " + first.findMostSimilarProduct("я"));
         } catch (BestResultNotFoundException e) {
