@@ -1,36 +1,28 @@
 package org.skypro.skyshop.search;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchEngine {
-    private final Searchable[] searchElements;
+    private final LinkedList<Searchable> searchElements;
 
-    public SearchEngine(int size) {
-        this.searchElements = new Searchable[size];
+    public SearchEngine() {
+        this.searchElements = new LinkedList<>();
     }
 
-    public Searchable[] search(String term) {
-        Searchable[] results = new Searchable[5];
-        int j = 0;
+    public List<Searchable> search(String term) {
+        ArrayList<Searchable> results = new ArrayList<>();
         for (Searchable elem : searchElements) {
             if (elem != null && elem.getSearchTerm().contains(term)) {
-                results[j] = elem;
-                j++;
-            }
-            if (j == 5) {
-                break;
+                results.add(elem);
             }
         }
         return results;
     }
 
     public void add(Searchable searchable) {
-        for (int i = 0; i < searchElements.length; i++) {
-            if (searchElements[i] == null) {
-                searchElements[i] = searchable;
-                return;
-            }
-        }
+        searchElements.add(searchable);
     }
 
     public Searchable findMostSimilarProduct(String search) throws BestResultNotFoundException {
@@ -60,6 +52,8 @@ public class SearchEngine {
 
     @Override
     public String toString() {
-        return Arrays.toString(this.searchElements);
+        return "SearchEngine{" +
+                "searchElements=" + searchElements +
+                '}';
     }
 }
