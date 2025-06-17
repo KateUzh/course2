@@ -5,7 +5,7 @@ import org.skypro.skyshop.product.Product;
 import java.util.*;
 
 public class ProductBasket {
-    private final LinkedList<Product> products;
+    private final List<Product> products;
     private int size = 0;
     private static int countSpecialProduct;
 

@@ -5,14 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SearchEngine {
-    private final LinkedList<Searchable> searchElements;
+    private final List<Searchable> searchElements;
 
     public SearchEngine() {
         this.searchElements = new LinkedList<>();
     }
 
     public List<Searchable> search(String term) {
-        ArrayList<Searchable> results = new ArrayList<>();
+        List<Searchable> results = new ArrayList<>();
         for (Searchable elem : searchElements) {
             if (elem != null && elem.getSearchTerm().contains(term)) {
                 results.add(elem);
