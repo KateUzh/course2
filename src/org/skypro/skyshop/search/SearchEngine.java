@@ -1,34 +1,32 @@
 package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
-    private final List<Searchable> searchElements;
+    private final Map<String, Searchable> searchElements;
 
     public SearchEngine() {
-        this.searchElements = new LinkedList<>();
+        this.searchElements = new TreeMap<>();
     }
 
-    public List<Searchable> search(String term) {
-        List<Searchable> results = new ArrayList<>();
-        for (Searchable elem : searchElements) {
+    public Map<String, Searchable> search(String term) {
+        Map<String, Searchable> results = new TreeMap<>();
+        for (Searchable elem : searchElements.values()) {
             if (elem != null && elem.getSearchTerm().contains(term)) {
-                results.add(elem);
+                results.put(elem.getStringRepresentation(), elem);
             }
         }
         return results;
     }
 
     public void add(Searchable searchable) {
-        searchElements.add(searchable);
+        searchElements.put(searchable.getSearchTerm(), searchable);
     }
 
-    public Searchable findMostSimilarProduct(String search) throws BestResultNotFoundException {
-        Searchable result = null;
+    public Map<String, Searchable> findMostSimilarProduct(String search) throws BestResultNotFoundException {
+        Map<String, Searchable> result = new TreeMap<>();
         int maxCount = 0;
-        for (Searchable searchElement : searchElements) {
+        for (Searchable searchElement : searchElements.values()) {
             if (searchElement != null) {
                 int count = 0;
                 int index = 0;
@@ -40,7 +38,7 @@ public class SearchEngine {
                 }
                 if (count > maxCount) {
                     maxCount = count;
-                    result = searchElement;
+                    result.put(searchElement.getStringRepresentation(), searchElement);
                 }
             }
         }
