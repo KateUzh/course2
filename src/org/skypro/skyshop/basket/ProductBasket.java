@@ -10,7 +10,7 @@ public class ProductBasket {
     private static int countSpecialProduct;
 
     public ProductBasket() {
-        this.products = new TreeMap<>();
+        this.products = new HashMap<>();
     }
 
     public void addProductInBasket(Product product) {

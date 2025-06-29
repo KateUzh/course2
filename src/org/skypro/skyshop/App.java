@@ -5,9 +5,7 @@ import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.BestResultNotFoundException;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
-
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class App {
     public static void main(String[] args) {
@@ -75,11 +73,8 @@ public class App {
         first.add(milk);
 
         System.out.println("first = " + first);
-        Map<String, Searchable> searchResults = first.search("ко");
-        System.out.println(searchResults + ":");
-        for(Map.Entry<String, Searchable> result : searchResults.entrySet()){
-            System.out.println(result.getKey() + " - " + result.getValue());
-        }
+        Set<Searchable> searchResults = first.search("ко");
+        System.out.println(searchResults);
         System.out.println("first.search(\"ко\") = " + first.search("ко"));
         try {
             System.out.println("first.findMostSimilarProduct(\"я\") = " + first.findMostSimilarProduct("я"));
