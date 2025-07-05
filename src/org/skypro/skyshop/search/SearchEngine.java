@@ -3,30 +3,31 @@ package org.skypro.skyshop.search;
 import java.util.*;
 
 public class SearchEngine {
-    private final Map<String, Searchable> searchElements;
+    private final Set<Searchable> searchElements;
 
     public SearchEngine() {
-        this.searchElements = new TreeMap<>();
+        this.searchElements = new HashSet<>();
     }
 
-    public Map<String, Searchable> search(String term) {
-        Map<String, Searchable> results = new TreeMap<>();
-        for (Searchable elem : searchElements.values()) {
+    public Set<Searchable> search(String term) {
+        Set<Searchable> results = new TreeSet<>(new SearchableComparator());
+        for (Searchable elem : searchElements) {
             if (elem != null && elem.getSearchTerm().contains(term)) {
-                results.put(elem.getStringRepresentation(), elem);
+                results.add(elem);
             }
         }
         return results;
     }
 
+
     public void add(Searchable searchable) {
-        searchElements.put(searchable.getSearchTerm(), searchable);
+        searchElements.add(searchable);
     }
 
-    public Map<String, Searchable> findMostSimilarProduct(String search) throws BestResultNotFoundException {
-        Map<String, Searchable> result = new TreeMap<>();
+    public Set<Searchable> findMostSimilarProduct(String search) throws BestResultNotFoundException {
+        Set<Searchable> result = new HashSet<>();
         int maxCount = 0;
-        for (Searchable searchElement : searchElements.values()) {
+        for (Searchable searchElement : searchElements) {
             if (searchElement != null) {
                 int count = 0;
                 int index = 0;
@@ -38,7 +39,7 @@ public class SearchEngine {
                 }
                 if (count > maxCount) {
                     maxCount = count;
-                    result.put(searchElement.getStringRepresentation(), searchElement);
+                    result.add(searchElement);
                 }
             }
         }
