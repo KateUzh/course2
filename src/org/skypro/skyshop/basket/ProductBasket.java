@@ -24,27 +24,30 @@ public class ProductBasket {
     }
 
     public int calcTotalBasketCost() {
-        int totalCost = 0;
-        for (List<Product> value : products.values()) {
-            for (Product product : value) {
-                if (product != null) {
-                    totalCost += product.getPrice();
-                }
-            }
-        }
-        return totalCost;
+        return products.values().stream()
+                .flatMap(List::stream)
+                .filter(Objects::nonNull)
+                .mapToInt(Product::getPrice)
+                .sum();
     }
 
     public void printBasket() {
-        for (Map.Entry<String, List<Product>> value : products.entrySet()) {
-            System.out.println(value);
-        }
         if (calcTotalBasketCost() == 0) {
             System.out.println("В корзине пусто");
         } else {
+            products.values().stream()
+                    .flatMap(List::stream)
+                    .forEach(System.out::println);
             System.out.println("Итого: " + calcTotalBasketCost());
-            System.out.println("Специальных товаров: " + countSpecialProduct);
+            System.out.println("Специальных товаров: " + getSpecialCount());
         }
+    }
+
+    private int getSpecialCount() {
+        return (int) products.values().stream()
+                .flatMap(List::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public boolean checkProduct(String productDesignation) {
